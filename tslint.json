@@ -41,7 +41,6 @@
     "ordered-imports": false,
     "no-invalid-this": true,
     "no-this-assignment": true,
-    "no-shadowed-variable": false,
     "whitespace": [
       true,
       "check-branch",

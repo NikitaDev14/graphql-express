@@ -1,36 +1,67 @@
 import { Observable } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
+import { map } from 'rxjs/operators';
 
 const request = (
   endpoint: string,
   body: object,
   extraOptions?: RequestInit,
-): Observable<Response> => {
+): Observable<any> => {
+  const header: Headers = new Headers({
+    'Content-Type': 'application/json',
+  });
+
   return fromFetch(
     endpoint,
     {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(body),
       ...extraOptions,
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: extraOptions ?
+        {
+          ...extraOptions.headers,
+          ...header,
+        } :
+        header,
     },
-  );
+  )
+    .pipe(
+      map((rawResponse: Response) => rawResponse.json()),
+    );
 };
 
 export const query = (
   endpoint: string,
-  query: string,
+  queryString: string,
   variables?: { [key: string]: string},
   fragments?: string[],
   extraOptions?: RequestInit,
-): Observable<Response> => {
+): Observable<any> => {
   return request(
     endpoint,
     {
       query: `
-        query ${query} \n
+        query ${queryString} \n
+        ${fragments.join('\n')}
+      `,
+      variables,
+    },
+    extraOptions,
+  );
+};
+
+export const mutation = (
+  endpoint: string,
+  mutationString: string,
+  variables?: { [key: string]: string},
+  fragments?: string[],
+  extraOptions?: RequestInit,
+): Observable<any> => {
+  return request(
+    endpoint,
+    {
+      mutation: `
+        mutation ${mutationString} \n
         ${fragments.join('\n')}
       `,
       variables,
