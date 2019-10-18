@@ -7,13 +7,14 @@
       "dom",
       "es2015"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "graphql-express": ["./src/index"]
+    },
     "sourceMap": true,
     "noImplicitAny": true,
     "outDir": "./dist/"
   },
-  "files": [
-    "src/index.ts.ts"
-  ],
   "exclude": [
     "node_modules"
   ]

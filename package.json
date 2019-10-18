@@ -2,7 +2,8 @@
   "name": "graphql-express",
   "version": "1.0.0-alpha.1",
   "description": "Simple GraphQL query builder",
-  "main": "index.js",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,8 +17,10 @@
     "url": "https://github.com/NikitaDev14/graphql-express/issues"
   },
   "homepage": "https://github.com/NikitaDev14/graphql-express#readme",
+  "dependencies": {
+    "rxjs": "^6.5.3"
+  },
   "devDependencies": {
-    "rxjs": "^6.5.3",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4"
   }
