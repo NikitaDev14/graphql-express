@@ -42,7 +42,7 @@ export const query = (
     {
       query: `
         query ${queryString} \n
-        ${fragments.join('\n')}
+        ${fragments ? fragments.join('\n') : ''}
       `,
       variables,
     },
@@ -62,7 +62,7 @@ export const mutation = (
     {
       mutation: `
         mutation ${mutationString} \n
-        ${fragments.join('\n')}
+        ${fragments ? fragments.join('\n') : ''}
       `,
       variables,
     },
