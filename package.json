@@ -1,0 +1,24 @@
+{
+  "name": "graphql-express",
+  "version": "1.0.0-alpha.1",
+  "description": "Simple GraphQL query builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikitaDev14/graphql-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikitaDev14/graphql-express/issues"
+  },
+  "homepage": "https://github.com/NikitaDev14/graphql-express#readme",
+  "devDependencies": {
+    "rxjs": "^6.5.3",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}

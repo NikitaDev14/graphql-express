@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es2015",
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "outDir": "./dist/"
+  },
+  "files": [
+    "src/index.ts.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
