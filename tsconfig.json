@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "es2015",
-    "target": "es2015",
+    "target": "es5",
     "moduleResolution": "node",
     "lib": [
       "dom",
@@ -12,8 +12,7 @@
       "graphql-express": ["./src/index"]
     },
     "sourceMap": true,
-    "noImplicitAny": true,
-    "outDir": "./dist/"
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules"
