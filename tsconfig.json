@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "es2015",
-    "target": "es2015",
+    "target": "es5",
     "moduleResolution": "node",
     "lib": [
       "dom",
+      "es5",
       "es2015"
     ],
     "baseUrl": ".",
@@ -13,7 +14,8 @@
     },
     "sourceMap": true,
     "noImplicitAny": true,
-    "outDir": "./dist/"
+    "removeComments": true,
+    "strictBindCallApply": true
   },
   "exclude": [
     "node_modules"

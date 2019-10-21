@@ -25,7 +25,7 @@
     "prefer-const": true,
     "prefer-readonly": true,
     "class-name": true,
-    "newline-per-chained-call": true,
+    "newline-per-chained-call": false,
     "one-variable-per-declaration": [true, "ignore-for-loop"],
     "space-before-function-paren": false,
     "space-within-parens": true,
