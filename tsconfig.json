@@ -15,7 +15,6 @@
     "noImplicitAny": true,
     "removeComments": true,
     "strictBindCallApply": true
-    "noImplicitAny": true
   },
   "exclude": [
     "node_modules"

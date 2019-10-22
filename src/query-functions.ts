@@ -58,7 +58,7 @@ export const mutation = (
   return request(
     endpoint,
     {
-      mutation: `mutation ${mutationString} \n
+      query: `mutation ${mutationString} \n
         ${fragments ? fragments.join('\n') : ''}`,
       variables,
     },
