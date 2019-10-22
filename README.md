@@ -3,6 +3,8 @@ A lightweight GraphQL client which can be handled by RxJs operators (switchMap, 
 
 # Comparing with Apollo
 
+When you open a playground, to test the package open developer console, go to the network section and set throttling.
+
 [Playground for graphql-express](https://stackblitz.com/edit/rxjs-j5yshn "Playground for graphql-express")
 
 [Playground for Angular+Apollo](https://stackblitz.com/edit/simple-apollo-angular-example-qebxsp "Playground for Angular+Apollo")
