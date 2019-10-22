@@ -1,5 +1,5 @@
 # graphql-express
-A lightweight GraphQL client which can be handled by RxJs operators (switchMap, mergeMap, concatMap, exhaustMap).
+A lightweight GraphQL client which can be handled by RxJs operators (switchMap, mergeMap, concatMap, exhaustMap). It requires RxJs v.6.5.0 or higher.
 
 # Comparing with Apollo
 
@@ -7,16 +7,12 @@ A lightweight GraphQL client which can be handled by RxJs operators (switchMap, 
 
 [Playground for Angular+Apollo](https://stackblitz.com/edit/simple-apollo-angular-example-qebxsp "Playground for Angular+Apollo")
 
-
-
 # Examples
 
 ## Query with fragment
 
 ```typescript
-import { Observable } from 'rxjs';
 import { query } from 'graphql-express';
-import { map } from 'rxjs/operators';
 
 const REQUEST_URL: string = 'https://api.graph.cool/simple/v1/ciyz901en4j590185wkmexyex';
 
@@ -47,9 +43,7 @@ query(
 ## Query with variable and fragment
 
 ```typescript
-import { Observable } from 'rxjs';
 import { query } from 'graphql-express';
-import { map } from 'rxjs/operators';
 
 const REQUEST_URL: string = 'https://api.graph.cool/simple/v1/ciyz901en4j590185wkmexyex';
 
@@ -77,6 +71,53 @@ query(
   userQuery,
   variables,
   [userFragment],
+).pipe(
+  //handling response
+);
+```
+
+## Mutation with fragment
+
+```typescript
+import { mutation } from 'graphql-express';
+
+const REQUEST_URL: string = 'https://api.graph.cool/simple/v1/ciyz901en4j590185wkmexyex';
+
+const renameUserMutation = `
+  updateUser(
+    $id: ID!,
+    $name: String
+  ) {
+    updateUser(
+      id: $id,
+      name: $name,
+      commentsIds: [],
+      comments: [],
+      postsIds: [],
+      posts: []
+    ) {
+      ...userFragment
+    }
+  }`;
+
+const userFragment = `
+  fragment userFragment on User {
+    id
+    name
+    email
+    createdAt
+  }`;
+
+const variables = {
+  id: 'ck1c8p3af1d1w0133wwv0jpkx',
+  name: 'test',
+};
+
+mutation(
+    REQUEST_URL,
+    renameUserMutation,
+    variables,
+    [userFragment],
 ).pipe(
   //handling response
 );
