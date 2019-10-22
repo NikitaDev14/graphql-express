@@ -8,8 +8,8 @@ export const request = (
   extraOptions?: RequestInit,
 ): Observable<any> => {
   const header: Headers = new Headers({
-                                        'Content-Type': 'application/json',
-                                      });
+    'Content-Type': 'application/json',
+  });
 
   return fromFetch(
     endpoint,

@@ -14,7 +14,9 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "strictBindCallApply": true
+    "strictBindCallApply": true,
+    "declaration": true,
+    "declarationMap": true
   },
   "exclude": [
     "node_modules"
