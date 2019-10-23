@@ -1,3 +1,11 @@
-package-lock.json
-node_modules
+# Editor specific
 .idea
+
+# Installed libs
+node_modules
+
+# Generated
+src/**/*.d.ts.map
+src/**/*.d.ts
+src/**/*.js
+src/**/*.js.map
