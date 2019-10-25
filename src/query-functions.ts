@@ -33,7 +33,7 @@ export const request = (
 export const query = (
   endpoint: string,
   queryString: string,
-  variables?: { [key: string]: string},
+  variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
 ): Observable<any> => {
@@ -51,7 +51,7 @@ export const query = (
 export const mutation = (
   endpoint: string,
   mutationString: string,
-  variables?: { [key: string]: string},
+  variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
 ): Observable<any> => {
