@@ -1,9 +1,19 @@
 {
   "name": "graphql-express",
-  "version": "1.0.0-alpha.5",
-  "description": "Simple GraphQL query builder",
+  "version": "1.0.3",
+  "description": "Simple GraphQL query builder built on RxJs",
+  "keywords": [
+    "GraphQL",
+    "GraphQlClient",
+    "SimpleGraphQLClient",
+    "CancelableGraphQL",
+    "GraphqlCancelable",
+    "SimpleGraphqlClient",
+    "ObservableGraphQL"
+  ],
   "main": "src/index.js",
   "module": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,8 +21,8 @@
     "type": "git",
     "url": "git+https://github.com/NikitaDev14/graphql-express.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Nikita Babych <mykytananych1989@gmail.com",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/NikitaDev14/graphql-express/issues"
   },

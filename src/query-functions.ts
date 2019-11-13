@@ -8,8 +8,8 @@ export const request = (
   extraOptions?: RequestInit,
 ): Observable<any> => {
   const header: Headers = new Headers({
-                                        'Content-Type': 'application/json',
-                                      });
+    'Content-Type': 'application/json',
+  });
 
   return fromFetch(
     endpoint,
@@ -33,7 +33,7 @@ export const request = (
 export const query = (
   endpoint: string,
   queryString: string,
-  variables?: { [key: string]: string},
+  variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
 ): Observable<any> => {
@@ -51,14 +51,14 @@ export const query = (
 export const mutation = (
   endpoint: string,
   mutationString: string,
-  variables?: { [key: string]: string},
+  variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
 ): Observable<any> => {
   return request(
     endpoint,
     {
-      mutation: `mutation ${mutationString} \n
+      query: `mutation ${mutationString} \n
         ${fragments ? fragments.join('\n') : ''}`,
       variables,
     },
