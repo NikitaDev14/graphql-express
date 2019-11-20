@@ -1,3 +1,7 @@
+import { Observable } from 'rxjs';
+
+import { query } from './query-functions';
+
 export enum QueryTypes {
   query = 'query',
   mutation = 'mutation',
@@ -6,61 +10,55 @@ export enum QueryTypes {
 export class QueryBuilder {
   public static registerHost(
     hostUrl: string,
-    hostName: string,
     registerAsDefault: boolean = false,
+    hostName?: string,
   ): void {
+    const hostNameToRegister = registerAsDefault ? QueryBuilder.DEFAULT_HOST_NAME : hostName;
     QueryBuilder.hostUrls = {
       ...QueryBuilder.hostUrls,
-      hostName,
+      [hostNameToRegister]: hostUrl,
     };
 
-    QueryBuilder.argumentTypesMap.set(QueryBuilder.DEFAULT_HOST_NAME, new Map());
-
-    if (registerAsDefault) {
-      QueryBuilder.defaultHostUrl = hostUrl;
-    }
+    QueryBuilder.argumentTypesMap.set(
+      hostNameToRegister,
+      new Map(),
+    );
   }
 
   public static registerArguments(
     argumentsMap: { [name: string]: string},
     hostName: string = QueryBuilder.DEFAULT_HOST_NAME,
   ): void {
-    const argumentsForRegister: any[] = Object
-      .keys(argumentsMap)
-      .map((argumentName: string) => [argumentName, argumentsMap[argumentName]])
-      .reduce((result: any[], val: any) => result.concat(val), []);
+    const hostArgumentsMap = QueryBuilder.argumentTypesMap.get(hostName);
 
-    QueryBuilder.argumentTypesMap
-      .get(hostName)
-      .set
-      .apply(
-        QueryBuilder.argumentTypesMap.get(hostName),
-        argumentsForRegister,
-      );
+    Object
+      .keys(argumentsMap)
+      .forEach((argumentKey: string) => {
+        hostArgumentsMap.set(argumentKey, argumentsMap[argumentKey]);
+      });
   }
 
   public static from(
-    query: string,
+    queryString: string,
     endpointName: string = QueryBuilder.DEFAULT_HOST_NAME,
   ): QueryBuilder {
-    return new QueryBuilder(query, endpointName);
+    return new QueryBuilder(queryString, endpointName);
   }
 
   private static readonly DEFAULT_HOST_NAME: string = 'default host';
-  private static defaultHostUrl: string;
-  private static hostUrls: { [hostName: string]: string};
+  private static hostUrls: { [hostName: string]: string} = { };
   private static argumentTypesMap: Map<string, Map<string, string>> = new Map();
 
-  private vars: { [varName: string]: string};
+  private variables: { [varName: string]: string};
   private fragments: string[];
 
   private constructor(
-    private query: string,
-    private endpoint: string,
+    private queryString: string,
+    private endpointName: string,
   ) { }
 
-  public addVariables(vars: { [varName: string]: string}): QueryBuilder {
-    this.vars = vars;
+  public addVariables(variables: { [varName: string]: string}): QueryBuilder {
+    this.variables = variables;
     return this;
   }
 
@@ -69,30 +67,38 @@ export class QueryBuilder {
     return this;
   }
 
-  public toString(queryType: QueryTypes, keepNulls: boolean = false): string {
+  public query(): Observable<any> {
+    return query(
+      QueryBuilder.hostUrls[this.endpointName],
+      this.toString(),
+      this.variables,
+      this.fragments,
+    );
+  }
+
+  private toString(keepNulls: boolean = false): string {
     const args = this.varsToString(keepNulls);
-    const fragments = this.fragmentsToString();
     if (!args) {
-      return `{ ${this.query} } ${fragments}`.trim();
+      return `{ ${this.queryString} }`.trim();
     }
-    return `${queryType} load(${args}) { ${this.query} } ${fragments}`.trim();
+    return `load(${args}) { ${this.queryString} }`.trim();
   }
 
   private varsToString(keepNulls: boolean): string {
-    if (!this.vars) {
+    if (!this.variables) {
       return '';
     }
 
-    return Object.getOwnPropertyNames(this.vars)
+    return Object.getOwnPropertyNames(this.variables)
       .map((name: string) => {
-        const value = this.vars[name];
+        const value = this.variables[name];
         if ((value === undefined || value === null) && !keepNulls) {
           return null;
         }
-        if (!QueryBuilder.argumentTypesMap.get(this.endpoint).has(name)) {
+        if (!QueryBuilder.argumentTypesMap.get(this.endpointName).has(name)) {
           return null;
         }
-        return `$${name}: ${QueryBuilder.argumentTypesMap.get(this.endpoint).get(name)}`;
+        return `$${name}: ${QueryBuilder.argumentTypesMap.get(this.endpointName).get(name)}`;
       })
       .filter((name: string) => name !== null)
       .join(', ');
