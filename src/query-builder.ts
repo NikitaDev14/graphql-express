@@ -103,14 +103,4 @@ export class QueryBuilder {
       .filter((name: string) => name !== null)
       .join(', ');
   }
-
-  private fragmentsToString(): string {
-    if (Boolean(this.fragments) && this.fragments.length > 0) {
-      return this.fragments.filter((fragment: string) => {
-        return fragment !== undefined && fragment !== null;
-      }).join(' ').trim();
-    }
-
-    return '';
-  }
 }
