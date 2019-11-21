@@ -79,9 +79,9 @@ export class QueryBuilder {
   private toString(keepNulls: boolean = false): string {
     const args = this.varsToString(keepNulls);
     if (!args) {
-      return `{ ${this.queryString} }`.trim();
+      return `{ ${this.queryString} }`;
     }
-    return `load(${args}) { ${this.queryString} }`.trim();
+    return `load(${args}) { ${this.queryString} }`;
   }
 
   private varsToString(keepNulls: boolean): string {
