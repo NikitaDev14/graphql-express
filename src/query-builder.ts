@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { query } from './query-functions';
+import { mutation, query } from './query-functions';
 
 export enum QueryTypes {
   query = 'query',
@@ -76,12 +76,21 @@ export class QueryBuilder {
     );
   }
 
+  public mutation(): Observable<any> {
+    return mutation(
+      QueryBuilder.hostUrls[this.endpointName],
+      this.toString(),
+      this.variables,
+      this.fragments,
+    );
+  }
+
   private toString(keepNulls: boolean = false): string {
     const args = this.varsToString(keepNulls);
     if (!args) {
       return `{ ${this.queryString} }`;
     }
-    return `load(${args}) { ${this.queryString} }`;
+    return `request(${args}) { ${this.queryString} }`;
   }
 
   private varsToString(keepNulls: boolean): string {
