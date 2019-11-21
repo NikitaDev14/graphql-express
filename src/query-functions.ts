@@ -30,6 +30,16 @@ export const request = (
     );
 };
 
+const joinList = (list: string[]): string => {
+  return list.map((item: string) =>
+    item.trim(),
+  ).join(' ');
+};
+
+const fragmentsToString = (fragments: string[]): string => {
+  return fragments ? joinList(fragments) : '';
+};
+
 export const query = (
   endpoint: string,
   queryString: string,
@@ -40,8 +50,7 @@ export const query = (
   return request(
     endpoint,
     {
-      query: `query ${queryString} \n
-        ${fragments ? fragments.join('\n') : ''}`,
+      query: `query ${queryString.trim()} ${fragmentsToString(fragments)}`,
       variables,
     },
     extraOptions,
@@ -58,8 +67,7 @@ export const mutation = (
   return request(
     endpoint,
     {
-      query: `mutation ${mutationString} \n
-        ${fragments ? fragments.join('\n') : ''}`,
+      query: `mutation ${mutationString.trim()} ${fragmentsToString(fragments)}`,
       variables,
     },
     extraOptions,

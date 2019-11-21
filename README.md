@@ -124,3 +124,46 @@ mutation(
   //handling response
 );
 ```
+
+## QueryBuilder
+
+
+```typescript
+import { QueryBuilder } from 'graphql-express';
+
+const REQUEST_URL: string = 'https://api.graph.cool/simple/v1/ciyz901en4j590185wkmexyex';
+
+const userQuery: string = `
+  User(id: $id) {
+   ...userFragment
+  }`;
+
+const userFragment: string = `
+  fragment userFragment on User {
+    id
+    name
+    email
+    createdAt
+  }`;
+
+QueryBuilder.registerHost(REQUEST_URL, true);
+QueryBuilder.registerArguments(
+  {
+    'id': 'ID',
+    'name': 'String',
+  },
+);
+
+QueryBuilder.from(userQuery)
+  .addFragments([userFragment])
+  .addVariables(
+    {
+      'id': 'ck1buv43a0hv201955u808iqn',
+    },
+  )
+  //or .mutation()
+  .query()
+  .pipe(
+    //handling response
+  );
+```
