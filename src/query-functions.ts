@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
-import { mergeMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 export const request = (
   endpoint: string,
@@ -26,7 +26,7 @@ export const request = (
     },
   )
     .pipe(
-      mergeMap((rawResponse: Response) => rawResponse.json()),
+      switchMap((rawResponse: Response) => rawResponse.json()),
     );
 };
 

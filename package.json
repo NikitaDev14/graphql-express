@@ -1,6 +1,6 @@
 {
   "name": "graphql-express",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple GraphQL query builder built on RxJs",
   "keywords": [
     "GraphQL",

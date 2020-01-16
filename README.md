@@ -1,7 +1,7 @@
 # graphql-express
 A lightweight GraphQL client which can be handled by RxJs operators (switchMap, mergeMap, concatMap, exhaustMap). It requires RxJs v.6.5.0 or higher.
 
-# Comparing with Apollo
+# Comparison with Apollo
 
 When you open a playground, to test the package open developer console, go to the network section and set throttling.
 
