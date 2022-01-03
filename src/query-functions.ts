@@ -2,11 +2,11 @@ import { Observable } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { switchMap } from 'rxjs/operators';
 
-export const request = (
+export const request = <T>(
   endpoint: string,
   body: object,
   extraOptions?: RequestInit,
-): Observable<any> => {
+): Observable<T> => {
   const header: Headers = new Headers({
     'Content-Type': 'application/json',
   });
@@ -40,14 +40,14 @@ const fragmentsToString = (fragments: string[]): string => {
   return fragments ? joinList(fragments) : '';
 };
 
-export const query = (
+export const query = <T>(
   endpoint: string,
   queryString: string,
   variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
-): Observable<any> => {
-  return request(
+): Observable<T> => {
+  return request<T>(
     endpoint,
     {
       query: `query ${queryString.trim()} ${fragmentsToString(fragments)}`,
@@ -57,14 +57,14 @@ export const query = (
   );
 };
 
-export const mutation = (
+export const mutation = <T>(
   endpoint: string,
   mutationString: string,
   variables?: { [key: string]: any},
   fragments?: string[],
   extraOptions?: RequestInit,
-): Observable<any> => {
-  return request(
+): Observable<T> => {
+  return request<T>(
     endpoint,
     {
       query: `mutation ${mutationString.trim()} ${fragmentsToString(fragments)}`,

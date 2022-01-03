@@ -67,8 +67,8 @@ export class QueryBuilder {
     return this;
   }
 
-  public query(): Observable<any> {
-    return query(
+  public query<T>(): Observable<T> {
+    return query<T>(
       QueryBuilder.hostUrls[this.endpointName],
       this.toString(),
       this.variables,
@@ -76,8 +76,8 @@ export class QueryBuilder {
     );
   }
 
-  public mutation(): Observable<any> {
-    return mutation(
+  public mutation<T>(): Observable<T> {
+    return mutation<T>(
       QueryBuilder.hostUrls[this.endpointName],
       this.toString(),
       this.variables,
