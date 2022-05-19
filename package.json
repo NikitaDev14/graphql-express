@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/NikitaDev14/graphql-express#readme",
   "peerDependencies": {
-    "rxjs": "^6.5.0"
+    "rxjs": ">=6.5.0"
   },
   "devDependencies": {
-    "rxjs": "^7.5.2",
+    "rxjs": "^7.5.5",
     "tslint": "^5.20.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.4"
   }
 }
