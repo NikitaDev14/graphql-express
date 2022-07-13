@@ -1,2 +1,2 @@
-export { query, mutation } from './query-functions';
+export { request, query, mutation } from './query-functions';
 export { QueryBuilder } from './query-builder';
