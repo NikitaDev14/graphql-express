@@ -4,7 +4,9 @@ import { switchMap } from 'rxjs/operators';
 
 type Primitives = string | number | boolean | null;
 
-type Variables = { [key: string]: Primitives | Variables };
+export type RequestVariables = {
+  [key: string]: Primitives | RequestVariables;
+};
 
 export const request = <T>(
   endpoint: string,
@@ -50,7 +52,7 @@ const fragmentsToString = (fragments: string[]): string => {
 export const query = <T>(
   endpoint: string,
   queryString: string,
-  variables?: Variables,
+  variables?: RequestVariables,
   fragments?: string[],
   extraOptions?: RequestInit,
   fullResponse: boolean = false,
@@ -69,7 +71,7 @@ export const query = <T>(
 export const mutation = <T>(
   endpoint: string,
   mutationString: string,
-  variables?: Variables,
+  variables?: RequestVariables,
   fragments?: string[],
   extraOptions?: RequestInit,
   fullResponse: boolean = false,
