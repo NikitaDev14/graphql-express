@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 
-import { mutation, query } from './query-functions';
+import { query } from "./query";
+import { mutation } from "./mutation";
 
 export enum QueryTypes {
   query = 'query',
