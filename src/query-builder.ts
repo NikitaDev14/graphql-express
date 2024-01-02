@@ -1,12 +1,7 @@
 import { Observable } from 'rxjs';
 
-import { query } from "./query";
-import { mutation } from "./mutation";
-
-export enum QueryTypes {
-  query = 'query',
-  mutation = 'mutation',
-}
+import { query } from './query';
+import { mutation } from './mutation';
 
 export class QueryBuilder {
   public static registerHost(

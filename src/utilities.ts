@@ -5,5 +5,5 @@ const joinList = (list: string[]): string => {
 };
 
 export const fragmentsToString = (fragments: string[]): string => {
-  return fragments ? joinList(fragments) : '';
+  return fragments.length > 0 ? joinList(fragments) : '';
 };

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { RequestVariables } from './models';
+import type { RequestVariables } from './models';
 import { request } from './request';
 import { fragmentsToString } from './utilities';
 

@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 import { request } from './request';
 import { fragmentsToString } from './utilities';
-import { RequestVariables } from './models';
+import type { RequestVariables } from './models';
 
 export const query = <T>(
   endpoint: string,

@@ -1,2 +1,5 @@
+export { request } from './request';
+export { query } from './query';
+export { mutation } from './mutation';
 export { QueryBuilder } from './query-builder';
-export { request, query, mutation } from './query-functions';
+export { QueryTypes } from "./models";
