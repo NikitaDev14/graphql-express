@@ -10,10 +10,11 @@ export enum QueryTypes {
 export class QueryBuilder {
   public static registerHost(
     hostUrl: string,
+    hostName: string,
     registerAsDefault: boolean = false,
-    hostName?: string,
   ): void {
-    const hostNameToRegister = registerAsDefault ? QueryBuilder.DEFAULT_HOST_NAME : hostName;
+    const hostNameToRegister: string = registerAsDefault ? QueryBuilder.DEFAULT_HOST_NAME : hostName;
+
     QueryBuilder.hostUrls = {
       ...QueryBuilder.hostUrls,
       [hostNameToRegister]: hostUrl,
@@ -29,7 +30,7 @@ export class QueryBuilder {
     argumentsMap: { [name: string]: string},
     hostName: string = QueryBuilder.DEFAULT_HOST_NAME,
   ): void {
-    const hostArgumentsMap = QueryBuilder.argumentTypesMap.get(hostName);
+    const hostArgumentsMap: Map<string, string> = QueryBuilder.argumentTypesMap.get(hostName);
 
     Object
       .keys(argumentsMap)
@@ -41,23 +42,32 @@ export class QueryBuilder {
   public static from(
     queryString: string,
     endpointName: string = QueryBuilder.DEFAULT_HOST_NAME,
+    extraOptions?: RequestInit,
+    fullResponse: boolean = false,
   ): QueryBuilder {
-    return new QueryBuilder(queryString, endpointName);
+    return new QueryBuilder(
+      queryString,
+      endpointName,
+      extraOptions,
+      fullResponse,
+    );
   }
 
   private static readonly DEFAULT_HOST_NAME: string = 'default host';
   private static hostUrls: { [hostName: string]: string} = { };
   private static argumentTypesMap: Map<string, Map<string, string>> = new Map();
 
-  private variables: { [varName: string]: string};
+  private variables: { [varName: string]: string };
   private fragments: string[];
 
   private constructor(
     private queryString: string,
     private endpointName: string,
+    private extraOptions: RequestInit,
+    private fullResponse: boolean,
   ) { }
 
-  public addVariables(variables: { [varName: string]: string}): QueryBuilder {
+  public addVariables(variables: { [varName: string]: string }): QueryBuilder {
     this.variables = variables;
     return this;
   }
@@ -67,26 +77,36 @@ export class QueryBuilder {
     return this;
   }
 
-  public query<T>(): Observable<T> {
+  public query<T>(
+    extraOptions?: RequestInit,
+    fullResponse?: boolean,
+  ): Observable<T> {
     return query<T>(
       QueryBuilder.hostUrls[this.endpointName],
       this.toString(),
       this.variables,
       this.fragments,
+      extraOptions || this.extraOptions,
+      fullResponse || this.fullResponse,
     );
   }
 
-  public mutation<T>(): Observable<T> {
+  public mutation<T>(
+    extraOptions?: RequestInit,
+    fullResponse?: boolean,
+  ): Observable<T> {
     return mutation<T>(
       QueryBuilder.hostUrls[this.endpointName],
       this.toString(),
       this.variables,
       this.fragments,
+      extraOptions || this.extraOptions,
+      fullResponse || this.fullResponse,
     );
   }
 
   private toString(keepNulls: boolean = false): string {
-    const args = this.varsToString(keepNulls);
+    const args: string = this.varsToString(keepNulls);
     if (!args) {
       return `{ ${this.queryString} }`;
     }
@@ -100,7 +120,7 @@ export class QueryBuilder {
 
     return Object.getOwnPropertyNames(this.variables)
       .map((name: string) => {
-        const value = this.variables[name];
+        const value: string = this.variables[name];
         if ((value === undefined || value === null) && !keepNulls) {
           return null;
         }

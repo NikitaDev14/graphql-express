@@ -87,6 +87,7 @@
       true,
       "call-signature",
       "parameter",
+      "variable-declaration",
       "arrow-parameter",
       "property-declaration",
       "member-variable-declaration",
