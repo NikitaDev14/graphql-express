@@ -2,6 +2,7 @@ import * as graphqlExpress from '../src/index';
 import * as request from '../src/request';
 import { RequestVariables } from '../src/models';
 import * as utilities from '../src/utilities';
+import { Observable } from 'rxjs';
 
 describe('Query', () => {
   let requestMock: jest.SpyInstance;
@@ -21,13 +22,13 @@ describe('Query', () => {
   });
 
   it('calls request function wirth passed arguments', () => {
-    const endpoint = 'testEndpoint';
-    const queryString = ' testQueryString ';
+    const endpoint: string = 'testEndpoint';
+    const queryString: string = ' testQueryString ';
     const variables: RequestVariables = { testVariable: 'testValue' };
-    const fragments = ['testFragment'];
+    const fragments: string[] = ['testFragment'];
     const extraOptions: RequestInit = { keepalive: true };
 
-    const testResult = graphqlExpress.query(
+    const testResult: Observable<any> = graphqlExpress.query(
         endpoint,
         queryString,
         variables,
