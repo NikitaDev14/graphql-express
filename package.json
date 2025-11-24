@@ -1,6 +1,6 @@
 {
   "name": "graphql-express",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simple GraphQL query builder built on RxJs",
   "keywords": [
     "GraphQL",
@@ -31,17 +31,16 @@
   },
   "homepage": "https://github.com/NikitaDev14/graphql-express#readme",
   "peerDependencies": {
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.2"
   },
   "dependencies": {
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
-    "tslint": "^6.1.3",
-    "typescript": "^5.4.4"
+    "typescript": "^5.9.3"
   }
 }
